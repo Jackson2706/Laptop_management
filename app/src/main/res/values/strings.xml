@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Laptop_management</string>
+    <string name="laptop_brand_name">Laptop Brand Name</string>
+    <string name="add_laptop_brand">Add Laptop Brand</string>
+    <string name="brand_rating">Brand Rating</string>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextLaptopBrand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/laptop_brand_name"
+        android:inputType="text" />
+
+    <Spinner
+        android:id="@+id/spn_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent" />
+
+    <Button
+
+        android:id="@+id/btn_add_brand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_laptop_brand" />
+
+</LinearLayout>

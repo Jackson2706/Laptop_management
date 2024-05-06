@@ -1,8 +1,11 @@
 package com.example.laptop_management;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -42,11 +45,11 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
                         " ( " + COLUMN_LAPTOP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_LAPTOP_NAME + " TEXT, " +
                         COLUMN_BRAND_ID + " INTEGER, " +
-                        "FOREIGN KEY (" + COLUMN_BRAND_ID + ") REFERENCES " + LAPTOP_BRAND_TABLE_NAME + "(" + COLUMN_LAPTOP_BRAND_ID + ") ON DELETE CASCADE, " +
                         COLUMN_PRICING + " INTEGER, " +
                         COLUMN_DISPLAY_SIZE + " REAL, " +
                         COLUMN_CHIP + " TEXT, " +
-                        COLUMN_RAM + " INTEGER);";
+                        COLUMN_RAM + " INTEGER, " +
+                        "FOREIGN KEY (" + COLUMN_BRAND_ID + ") REFERENCES " + LAPTOP_BRAND_TABLE_NAME + "(" + COLUMN_LAPTOP_BRAND_ID + ") ON DELETE CASCADE);";
 
 
         db.execSQL(query);
@@ -59,5 +62,28 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    void addBrandData(String brand_name, int rating){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_LAPTOP_BRAND_NAME, brand_name);
+        cv.put(COLUMN_LAPTOP_BRAND_RATING, rating);
 
+        long result = db.insert(LAPTOP_BRAND_TABLE_NAME, null, cv);
+        if (result == -1){
+            Toast.makeText(context, "Failed to add laptop brand data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Successed to add laptop brand data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAllBrandNData(){
+        String query = "SELECT * FROM " + LAPTOP_BRAND_TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return  cursor;
+    }
 }

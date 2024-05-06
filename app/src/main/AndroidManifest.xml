@@ -10,14 +10,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Laptop_management"
+        android:theme="@style/Theme.MaterialComponents.Light"
         tools:targetApi="31">
         <activity
+            android:name=".AddLaptopBrandActivity"
+            android:exported="false"
+            android:label="Add Laptop Brand Data"
+            android:parentActivityName=".LaptopBrandActivity"/>
+        <activity
             android:name=".LaptopBrandActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="List of Laptop Brand Data"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Laptop Management">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

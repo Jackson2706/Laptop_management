@@ -87,6 +87,21 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         return  cursor;
     }
 
+    Cursor readBrandById(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + LAPTOP_BRAND_TABLE_NAME + " WHERE " + COLUMN_LAPTOP_BRAND_ID + " = ?";
+
+        Cursor cursor = null;
+        if (db != null) {
+            cursor = db.rawQuery(query, new String[]{id});
+            cursor.moveToFirst(); // Di chuyển con trỏ đến hàng đầu tiên (nếu có)
+        }
+        return cursor;
+    }
+
+
+
+
     void updateBrandData(String brand_id, String brand_name, String brand_star_rate){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -109,5 +124,34 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context, "Success to delete laptop brand data", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    void addLaptopData(String laptop_name, int brand_id, int price, float display_size, String chip_information, int ram_information){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_LAPTOP_NAME, laptop_name);
+        cv.put(COLUMN_BRAND_ID, brand_id);
+        cv.put(COLUMN_PRICING, price);
+        cv.put(COLUMN_DISPLAY_SIZE, display_size);
+        cv.put(COLUMN_CHIP, chip_information);
+        cv.put(COLUMN_RAM, ram_information);
+
+        long result = db.insert(LAPTOP_TABLE_NAME, null, cv);
+        if (result == -1){
+            Toast.makeText(context, "Failed to add laptop data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Success to add laptop data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAllLaptopData(){
+        String query = "SELECT * FROM " + LAPTOP_TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return  cursor;
     }
 }

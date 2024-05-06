@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0:
                         Toast.makeText(MainActivity.this, "Laptop Management !", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(MainActivity.this, InsertData.class);
+                        Intent intent_1 = new Intent(MainActivity.this, LaptopActivity.class);
+                        startActivity(intent_1);
 
                         break;
                     case 1:

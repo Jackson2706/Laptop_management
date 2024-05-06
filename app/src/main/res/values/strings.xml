@@ -3,4 +3,8 @@
     <string name="laptop_brand_name">Laptop Brand Name</string>
     <string name="add_laptop_brand">Add Laptop Brand</string>
     <string name="brand_rating">Brand Rating</string>
+    <string name="laptop_name">Laptop Name</string>
+    <string name="price">Price</string>
+    <string name="display_size">Display Size</string>
+    <string name="add_laptop_information">ADD LAPTOP INFORMATION</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -47,11 +48,20 @@ public class LaptopBrandActivity extends AppCompatActivity {
         brand_name = new ArrayList<>();
         brand_star_rate = new ArrayList<>();
         storeBrandDataInArrays();
-        brandDataAdapter = new BrandDataAdapter(LaptopBrandActivity.this, brand_id, brand_name, brand_star_rate);
+        brandDataAdapter = new BrandDataAdapter(LaptopBrandActivity.this, this, brand_id, brand_name, brand_star_rate);
         recyclerView.setAdapter(brandDataAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(LaptopBrandActivity.this));
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            recreate();
+        }
+    }
+
     void storeBrandDataInArrays(){
         Cursor cursor = myDB.readAllBrandNData();
         if(cursor.getCount() == 0){

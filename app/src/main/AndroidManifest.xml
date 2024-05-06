@@ -13,15 +13,18 @@
         android:theme="@style/Theme.MaterialComponents.Light"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateLaptopBrandActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddLaptopBrandActivity"
             android:exported="false"
             android:label="Add Laptop Brand Data"
-            android:parentActivityName=".LaptopBrandActivity"/>
+            android:parentActivityName=".LaptopBrandActivity" />
         <activity
             android:name=".LaptopBrandActivity"
             android:exported="false"
             android:label="List of Laptop Brand Data"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

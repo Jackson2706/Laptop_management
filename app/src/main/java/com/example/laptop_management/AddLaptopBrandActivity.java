@@ -59,7 +59,7 @@ public class AddLaptopBrandActivity extends AppCompatActivity {
         });
     }
 
-    private List<Rating> getListRating(){
+    public static List<Rating> getListRating(){
         List<Rating> list = new ArrayList<>();
         list.add(new Rating("0 star"));
         list.add(new Rating("1 star"));
@@ -70,3 +70,4 @@ public class AddLaptopBrandActivity extends AppCompatActivity {
         return list;
     }
 }
+

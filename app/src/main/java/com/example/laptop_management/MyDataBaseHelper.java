@@ -86,4 +86,28 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         }
         return  cursor;
     }
+
+    void updateBrandData(String brand_id, String brand_name, String brand_star_rate){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_LAPTOP_BRAND_NAME, brand_name);
+        cv.put(COLUMN_LAPTOP_BRAND_RATING, brand_star_rate);
+
+        long results = db.update(LAPTOP_BRAND_TABLE_NAME, cv, COLUMN_LAPTOP_BRAND_ID + "=?", new String[]{brand_id});
+        if (results == -1){
+            Toast.makeText(context, "Failed to update laptop brand data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Successed to update laptop brand data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteAnBrandData(String brand_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(LAPTOP_BRAND_TABLE_NAME, COLUMN_LAPTOP_BRAND_ID + "=?",  new String[]{brand_id});
+        if (result == -1){
+            Toast.makeText(context, "Failed to delete laptop brand data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Success to delete laptop brand data", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

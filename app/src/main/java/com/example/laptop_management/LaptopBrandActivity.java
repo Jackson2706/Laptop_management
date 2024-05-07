@@ -39,7 +39,7 @@ public class LaptopBrandActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LaptopBrandActivity.this, AddLaptopBrandActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 

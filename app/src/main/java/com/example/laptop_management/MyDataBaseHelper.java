@@ -154,4 +154,61 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
         }
         return  cursor;
     }
+
+    void updateLaptopData(String laptop_id, String laptop_name, int brand_id, int price, float display_size, String chip_information, int ram_information){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_LAPTOP_NAME, laptop_name);
+        cv.put(COLUMN_BRAND_ID, brand_id);
+        cv.put(COLUMN_PRICING, price);
+        cv.put(COLUMN_DISPLAY_SIZE, display_size);
+        cv.put(COLUMN_CHIP, chip_information);
+        cv.put(COLUMN_RAM, ram_information);
+
+        long results = db.update(LAPTOP_TABLE_NAME, cv, COLUMN_LAPTOP_ID + "=?", new String[]{laptop_id});
+        if (results == -1){
+            Toast.makeText(context, "Failed to update laptop data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Successed to update laptop data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteAnLaptopData(String laptop_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(LAPTOP_TABLE_NAME, COLUMN_LAPTOP_ID + "=?",  new String[]{laptop_id});
+        if (result == -1){
+            Toast.makeText(context, "Failed to delete laptop data", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Success to delete laptop data", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    Cursor readAllLaptopByBrandData(){
+        String query = "SELECT * FROM " + LAPTOP_TABLE_NAME + " ORDER BY " + COLUMN_BRAND_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return  cursor;
+    }
+
+    public Cursor readFilteredLaptopData() {
+        String query =
+                "SELECT " + LAPTOP_TABLE_NAME + ".*" +
+                        " FROM " + LAPTOP_TABLE_NAME +
+                        " JOIN " + LAPTOP_BRAND_TABLE_NAME +
+                        " ON " + LAPTOP_TABLE_NAME + "." + COLUMN_BRAND_ID + " = " + LAPTOP_BRAND_TABLE_NAME + "." + COLUMN_LAPTOP_BRAND_ID +
+                        " WHERE " + LAPTOP_TABLE_NAME + "." + COLUMN_DISPLAY_SIZE + " > 14 AND " + LAPTOP_BRAND_TABLE_NAME + "." + COLUMN_LAPTOP_BRAND_RATING + " > 3";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if (db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return  cursor;
+    }
+
 }

@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         listCategory = new ArrayList<>();
         listCategory.add(new CategoryData(R.drawable.ic_launcher_foreground, "Laptop Management", "Create/Read/Update/Delete Latop data"));
         listCategory.add(new CategoryData(R.drawable.ic_launcher_foreground, "Laptop Brand Management", "Create/Read/Update/Delete Laptop Brand data"));
-
+        listCategory.add(new CategoryData(R.drawable.ic_launcher_foreground, "Display laptops by brand", "Create/Read/Update/Delete Laptop data"));
+        listCategory.add(new CategoryData(R.drawable.ic_launcher_foreground, "List laptops with screen size larger than 14 inches and rated at least 3 stars", "Create/Read/Update/Delete Laptop data"));
         categoryListViewAdapter = new CategoryListViewAdapter(listCategory);
         categoryListView = findViewById(R.id.taskList);
         categoryListView.setAdapter(categoryListViewAdapter);
@@ -37,13 +38,28 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         Toast.makeText(MainActivity.this, "Laptop Management !", Toast.LENGTH_SHORT).show();
                         Intent intent_1 = new Intent(MainActivity.this, LaptopActivity.class);
+                        intent_1.putExtra("Request", "0");
+
                         startActivity(intent_1);
+
 
                         break;
                     case 1:
                         Toast.makeText(MainActivity.this, "Laptop Brand Management!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, LaptopBrandActivity.class);
-                        startActivity(intent);
+                        Intent intent_2 = new Intent(MainActivity.this, LaptopBrandActivity.class);
+                        startActivity(intent_2);
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this, "Display laptops by brand.!", Toast.LENGTH_SHORT).show();
+                        Intent intent_3 = new Intent(MainActivity.this, LaptopActivity.class);
+                        intent_3.putExtra("Request", "1");
+                        startActivity(intent_3);
+                        break;
+                    case 3:
+                        Toast.makeText(MainActivity.this, "List laptops with screen size larger than 14 inches and rated at least 3 stars", Toast.LENGTH_SHORT).show();
+                        Intent intent_4 = new Intent(MainActivity.this, LaptopActivity.class);
+                        intent_4.putExtra("Request", "2");
+                        startActivity(intent_4);
                         break;
                     default:
                         break;

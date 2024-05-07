@@ -7,4 +7,6 @@
     <string name="price">Price</string>
     <string name="display_size">Display Size</string>
     <string name="add_laptop_information">ADD LAPTOP INFORMATION</string>
+    <string name="update_laptop_information">Update Laptop Information</string>
+    <string name="delete_laptop_information">DELETE LAPTOP INFORMATION</string>
 </resources>

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LaptopActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -38,7 +39,7 @@ public class LaptopActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LaptopActivity.this, AddLaptopActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -50,17 +51,73 @@ public class LaptopActivity extends AppCompatActivity {
         display_size_list = new ArrayList<>();
         chip_information_list = new ArrayList<>();
         ram_information_list = new ArrayList<>();
+        switch (Objects.requireNonNull(getIntent().getStringExtra("Request"))){
+            case "0":
+                storeAllLaptopDataInArray();
+                break;
+            case "1":
+                storeLaptopDataByBrandInArray();
+                break;
 
-        storeAllLaptopDataInArray();
-        laptopDataAdapter = new LaptopDataAdapter(LaptopActivity.this, laptop_ids, laptop_names, brand_ids, prices, display_size_list, chip_information_list, ram_information_list);
+            case "2":
+                storeLaptopData3starInArray();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + getIntent().hasExtra("Request"));
+        }
+        laptopDataAdapter = new LaptopDataAdapter(LaptopActivity.this, this, laptop_ids, laptop_names, brand_ids, prices, display_size_list, chip_information_list, ram_information_list);
         recyclerView.setAdapter(laptopDataAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(LaptopActivity.this));
 
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            recreate();
+        }
+    }
+
     void storeAllLaptopDataInArray(){
         Cursor cursor = myDB.readAllLaptopData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(this, "No data...", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()){
+                laptop_ids.add(cursor.getString(0));
+                laptop_names.add(cursor.getString(1));
+                brand_ids.add(cursor.getString(2));
+                prices.add(cursor.getString(3));
+                display_size_list.add(cursor.getString(4));
+                chip_information_list.add(cursor.getString(5));
+                ram_information_list.add(cursor.getString(6));
+            }
+        }
+
+    }
+
+    void storeLaptopDataByBrandInArray(){
+        Cursor cursor = myDB.readAllLaptopByBrandData();
+        if(cursor.getCount() == 0){
+            Toast.makeText(this, "No data...", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()){
+                laptop_ids.add(cursor.getString(0));
+                laptop_names.add(cursor.getString(1));
+                brand_ids.add(cursor.getString(2));
+                prices.add(cursor.getString(3));
+                display_size_list.add(cursor.getString(4));
+                chip_information_list.add(cursor.getString(5));
+                ram_information_list.add(cursor.getString(6));
+            }
+        }
+
+    }
+
+    void storeLaptopData3starInArray(){
+        Cursor cursor = myDB.readFilteredLaptopData();
         if(cursor.getCount() == 0){
             Toast.makeText(this, "No data...", Toast.LENGTH_SHORT).show();
         } else {
